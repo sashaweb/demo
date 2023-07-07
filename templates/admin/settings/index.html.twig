@@ -1,0 +1,53 @@
+{% extends 'admin/base.html.twig' %}
+{% set page_title = t('page.admin.settings.title')|trans %}
+
+{% block title %}{% trans %}page.admin.settings.title{% endtrans %}{% endblock %}
+{% block h1 %}{% trans %}page.admin.settings.title{% endtrans %}{% endblock %}
+
+{% block body %}
+
+<div class="row border-bottom mt-5 mb-5 row-cols-1 row-cols-lg-2 row-cols-xl-2">
+    <div class="col-12 col-lg-6 col-xl-6">
+        <h1>{% trans %}page.admin.settings.title{% endtrans %}</h1>
+    </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    {% trans %}page.admin.settings.sitemap{% endtrans %}
+  </div>
+  <div class="card-body row">
+    <div class="col">
+        <strong>{% trans %}page.admin.settings.link{% endtrans %}:</strong> 
+        {% if sitemap.link is not null %}
+          <a href="/{{sitemap.link}}" target="_blank">https://{{app.request.httpHost}}/{{sitemap.link}}</a>
+        {% else %}
+          {% trans %}page.admin.settings.not_found{% endtrans %}
+        {% endif %}
+    </div>
+    <div class="col">
+      <strong>{% trans %}page.admin.settings.creation_date{% endtrans %}:</strong>
+      {{sitemap.modified_at is not null ? sitemap.modified_at | date('d.m.Y H:i:s') : '-'}}
+    </div>
+    <div class="col">
+        {{ form_start(sitemap_form) }}
+            {{ form_widget(sitemap_form.generate, {
+            'label': 'btn.generate', 
+            'attr': {                    
+                'class': 'btn btn-primary btn-block', 
+                'type': 'button', 
+                } 
+            }) }}
+            {{ form_widget(sitemap_form.delete, {
+            'label': 'btn.delete', 
+            'attr': {                    
+                'class': 'btn btn-danger btn-block', 
+                'type': 'button', 
+                } 
+            }) }}
+        {{ form_end(sitemap_form) }}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+
+{% extends 'base.html.twig' %}
+{% block title %}{{site.name}}{% endblock %}
+{% block h1 %}{{site.name}}{% endblock %}
+{% block meta_description %}{{site.shortdescription}}{% endblock %}
+
+{% block body %}
+
+<p>{{site.description}}</p>
+<div style="text-align: center;">
+    <big>
+        <a class="green" href="//{{site.domain}}" rel="nofollow">{{site.domain}}</a>
+    </big>
+</div>
+
+{% endblock %}

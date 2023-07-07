@@ -1,0 +1,83 @@
+{% extends 'admin/base.html.twig' %}
+{% set page_title = t('page.admin.categories_create.title')|trans %}
+
+{% block body %}
+
+<div class="row border-bottom mt-5 mb-5 row-cols-1 row-cols-lg-2 row-cols-xl-2">
+    <div class="col-12 col-lg-6 col-xl-6">
+        <h1>{% trans %}page.admin.categories_create.title{% endtrans %}</h1>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-6 text-end">
+        <a href="{{ path('app_admin_categories') }}">{% trans %}page.admin.categories_create.list{% endtrans %}</a>
+    </div>
+</div>
+<div class="row justify-content-xl-center">
+    <div class="col col-xl-6 ">
+        {{ form_start(form) }}
+            <div class="errors">
+                {{ form_errors(form) }}
+            </div>
+            <div>
+                <div class="mb-3">
+                    {{ form_label(form.nameUk, 'admin.label.name_uk', { 
+                        'label_attr': {'class': 'form-label fw-bold'},
+                        }) }}      
+                    {{ form_widget(form.nameUk, { 
+                        'attr': {'class': 'form-control'},
+                        }) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.nameRu, 'admin.label.name_ru', { 
+                        'label_attr': {'class': 'form-label fw-bold'},
+                        }) }}      
+                    {{ form_widget(form.nameRu, { 
+                        'attr': {'class': 'form-control'},
+                        }) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.alias, 'admin.label.alias', { 
+                        'label_attr': {'class': 'form-label fw-bold'},
+                        }) }}      
+                    {{ form_widget(form.alias, { 
+                        'attr': {'class': 'form-control'} 
+                        }) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.parentId, 'admin.label.parent_id', { 
+                        'label_attr': {'class': 'form-label fw-bold'},
+                        }) }}      
+                    {{ form_widget(form.parentId, { 
+                        'attr': {'class': 'form-control'} 
+                        }) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.orderNumber, 'admin.label.order', { 
+                        'label_attr': {'class': 'form-label fw-bold'},
+                        }) }}      
+                    {{ form_widget(form.orderNumber, { 
+                        'attr': {'class': 'form-control'} 
+                        }) }}
+                </div>
+                <div class="mb-3">   
+                    <div class="row justify-content-xl-center">
+                        <div class="col-4">
+                            <div class="d-grid">
+                                {{ form_widget(form.create, {
+                                    'label': 'btn.create', 
+                                    'attr': {                    
+                                        'class': 'btn btn-success btn-block', 
+                                        'type': 'button', 
+                                        } 
+                                    }) }}
+                            </div>
+                        </div>            
+                    </div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% trans %}page.submit.title{% endtrans %}{% endblock %}
+{% block h1 %}{% trans %}page.submit.title{% endtrans %}{% endblock %}
+{% block meta_description %}{% trans %}page.submit.meta.description{% endtrans %}{% endblock %}
+{% block meta_keywords %}{% trans %}page.submit.meta.keywords{% endtrans %}{% endblock %}
+
+{% block body %}
+
+{{ form_start(form) }}
+    
+    <div class="add-form">
+        <div class="group">
+            {{ form_label(form.name, 'label.name') }}
+            {{ form_widget(form.name) }}
+            <div class="field-errors">
+                {{ form_errors(form.name) }}
+            </div>
+        </div>
+        <div class="group">
+            {{ form_label(form.domain, 'label.domain') }}
+            {{ form_widget(form.domain) }}
+            <div class="help-text">{% trans %}help_text.domain{% endtrans %}</div>
+            <div class="field-errors">
+                {{ form_errors(form.domain) }}
+            </div>
+        </div>
+        <div class="group">
+            {{ form_label(form.email, 'label.email') }}
+            {{ form_widget(form.email) }}
+            <div class="field-errors">
+                {{ form_errors(form.email) }}
+            </div>
+        </div>
+        <div class="group">
+            {{ form_label(form.categoryId, 'label.category')}}     
+            <div id="categories">
+                {{ form_widget(form.categoryId) }}
+            </div>
+            <div class="field-errors">
+                {{ form_errors(form.categoryId) }}
+            </div>
+        </div>
+        <div class="group">
+            {{ form_label(form.description, 'label.description') }}
+            {{ form_widget(form.description) }}
+            <div class="field-errors">
+                {{ form_errors(form.description) }}
+            </div>
+        </div>
+        <div class="group">
+            <div class="center">
+            {{ form_widget(form.submit, {'label': 'btn.submit'}) }}
+            </div>
+        </div>
+        <div class="group">
+            <div class="center help-text">
+            {% trans with {'%price%': app.request.server.get('PRICE')} %}page.submit.payment_alert{% endtrans %}
+            </div>
+        </div>
+    </div>
+{{ form_end(form) }}
+<script src="/js/categorySelectBuilder.js"></script>
+<script>
+        loadCategories({{form.children.categoryId.vars.value|default(0)}}, "", "user");    
+</script>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% trans %}page.home.title{% endtrans %}{% endblock %}
+{% block h1 %}{% trans %}page.home.title{% endtrans %}{% endblock %}
+{% block meta_description %}{% trans %}page.home.meta.description{% endtrans %}{% endblock %}
+{% block meta_keywords %}{% trans %}page.home.meta.keywords{% endtrans %}{% endblock %}
+
+{% block body %}
+
+{% set locale = app.request.getLocale() %}
+
+<article class="main-categories">
+    {% for category in categories %}
+        <div>
+            <a href="/categories/{{category.alias}}">{{ category.name(locale)  }} <small>{{category.count}}</small></a>
+            {% if category.children is defined and category.children|length > 0 %}
+                {% for category2 in category.children %} 
+                    <a href="/categories/{{category2.alias}}">{{ category2.name(locale) }} <small>{{category2.count}}</small></a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+</article>
+
+<article>
+    <h2 class="line">{% trans %}page.home.why_register_title{% endtrans %}</h2>
+    {% trans %}page.home.why_register_text{% endtrans %}
+</article>
+
+<article>
+    <h2 class="line">{% trans %}page.home.partners{% endtrans %}</h2>
+    <div style="margin: 50px 30px 30px 30px;">
+        <div style="display: inline-block; width: 12px; height: 12px; background-color: red; margin-right: 5px;"></div> <a href="//catalogs.com.ua">Каталог украинских сайтов - <span style="color: green;">catalogs.com.ua</span></a>
+    </div>
+	<div style="margin: 30px;">
+        <div style="display: inline-block; width: 12px; height: 12px; background-color: red; margin-right: 5px;"></div> <a href="//catalog.net.ua">Каталог сайтов - <span style="color: green;">catalog.net.ua</span></a>	
+    </div>
+    <div style="margin: 30px;">
+        <div style="display: inline-block; width: 12px; height: 12px; background-color: red; margin-right: 5px;"></div> <a href="//catalog.in.ua">Білий каталог сайтів - <span style="color: green;">catalog.in.ua</span></a>
+    </div>
+</article>
+
+<article>
+    <h2 class="line">{% trans %}page.home.new_sites{% endtrans %}</h2>
+    {% for site in sites %}
+        <section class="new-site">
+            <span class="new-site__time">[{{site.createdat | date('d.m.Y')}}]</span>
+            <a class="new-site__external-link" href="//{{site.domain}}">{{site.domain}}</a>
+            <a class="new-site__internal-link" href="/site/{{site.domain}}">{{site.name}}</a>
+        </section>
+    {% endfor %}
+</article>   
+
+{% endblock %}

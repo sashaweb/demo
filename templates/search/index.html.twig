@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}page.search.title{% endtrans %}{% endblock %}
+{% block h1 %}{% trans %}page.search.title{% endtrans %}{% endblock %}
+{% block meta_description %}{% trans %}page.search.meta.description{% endtrans %}{% endblock %}
+{% block meta_keywords %}{% trans %}page.search.meta.keywords{% endtrans %}{% endblock %}
+
+{% block body %}
+
+<div class="body">
+    <div class="container"><div style="width: 600px; margin: auto;">
+        <form class="form-search">
+            <div class="group">
+                <input type="text" name="term" placeholder="{% trans %} page.search.name_or_domain {% endtrans %}" value="{{term}}">
+            </div>
+            <div class="group">
+                <div class="center">
+                    <button type="submit">{% trans %} btn.search {% endtrans %}</button>
+                </div>
+            </div>
+        </form>
+        {% if term %}
+            {% if sites %}
+                <div class="sites">
+                    {% for site in sites %}
+                        <div class="site clearfix">
+                            <div></div>
+                            <div>
+                                <h3>
+                                    <a href="//{{site.domain}}" rel="nofollow">{{site.name}}</a>
+                                </h3>
+                                <a href="//{{site.domain}}" class="green" rel="nofollow">{{site.domain}}</a>
+                                <p>{{site.description}}</p>
+                                <a href="/site/{{site.domain}}" class="red">подробнее</a>
+                            </div>
+                        </div> 
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="errors">
+                    {% trans %} page.search.not_found {% endtrans %}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

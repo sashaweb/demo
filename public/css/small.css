@@ -1,0 +1,311 @@
+
+body{
+    font-family: Verdana;
+    margin: 0px;
+    padding: 0px;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+h1,h2,h3,h4{
+    color: #444444;
+}
+
+h1{
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 70px auto;
+}
+
+h2{
+    font: 1.8em Verdana;
+}
+
+h3{
+   font-family: Arial;    
+}
+
+a{
+    color: #005c9c;
+    display: inline-block;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover{
+    color: darkgoldenrod;
+}
+
+p{
+    line-height: 1.5;
+}
+
+option.group{
+    color: #000000;
+    background-color: lemonchiffon;
+}
+
+input[type=text], 
+textarea,
+select{
+    width: 100%;
+    margin: 3px auto auto auto;
+    border: 1px solid silver;
+    padding: 5px;
+    font-size: 1.2em;
+    font-family: Verdana;
+}
+
+input[type=text]:focus, 
+textarea:focus,
+select:focus{   
+    border: 1px solid #009ACD;
+    padding: 5px;
+    background-color: ivory;
+}
+
+button[type=submit] {
+    padding: 10px 30px;
+}
+
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.container{
+    margin: 0px auto;
+    max-width: 980px;
+    padding: 0px 20px;
+}
+
+.center{
+    text-align: center;
+}
+
+/* PAGINATION */
+
+.pagination{
+    margin: 20px;
+    text-align: center;
+}
+
+.pagination > a{
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #DDDDDD;
+    font: 14px Verdana;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.pagination > a:hover{
+    background-color: #F1F1F1;
+}
+
+.pagination > a.active{
+    background-color: #009ACD;
+    border: 1px solid #009ACD;
+    color: white;
+}
+
+.gray{
+    color: gray;
+}
+
+/* Title */
+
+.title{
+    background-color: white;
+    padding: 20px 0px;
+}
+
+/* Menu */
+
+.menu{
+    background-color: #009ACD;
+}
+
+.menu > div > a{
+    display: block;
+    padding: 10px 15px;
+    font: 1.2em Arial;
+    color: white;
+    text-decoration: none;
+}
+
+.menu > div > a:hover{
+    background-color: #00688B;
+}
+
+/* BODY */
+
+.body .container{
+    margin-bottom: 10px;
+}
+
+
+/*  FOOTER */
+
+.footer{
+    background-color: whitesmoke;
+    padding: 30px 0px;
+}
+
+.footer > div {
+    display: grid;
+    gap: 20px 0px;
+}
+
+.footer > div > div:nth-child(1) {
+    text-align: center;
+    order: 1;
+}
+
+.footer > div > div:nth-child(2) {
+    text-align: center;
+    order: 3;
+}
+
+.footer > div > div:nth-child(3) {
+    text-align: center;
+    order: 2;
+}
+
+
+/* ERRORS */
+
+.errors{
+    padding: 5px;
+    color: brown;
+    background-color: #FFEEEE;
+}
+
+
+/* Add */
+
+.add-form{
+    width: 100%;
+    margin: auto;
+}
+
+.group{
+    margin-bottom: 10px;
+}
+
+/* Main */
+
+.main-categories {
+    display: grid;
+    gap: 70px 80px;
+}
+
+.main-categories a {
+    display: block;
+    margin: 0px auto 10px 20px;
+    color: #333333;
+    transition: margin-left 0.5s;
+    font-size: 1.1em;
+}
+
+.main-categories a:hover,
+.main-categories > div > a:first-child:hover
+{
+    color: darkgoldenrod;
+    margin-left: 0px;
+}
+
+.main-categories > div > a:first-child {
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgrey;
+    color: #005c9c;
+    margin-left: 0px;
+    font-weight: bold;
+}
+
+.new-site {
+    padding-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.new-site:hover {
+    background-color: #F8F8F8;
+}
+
+.new-site__time {
+    color: gray;
+}
+
+.new-site__external-link {
+    color: green;
+}
+
+.new-site__internal-link {
+    display: none;
+    color: black;
+}
+
+
+
+/* CATEGORIES */
+
+.categories > div:nth-child(1){
+    display: block;
+    margin-bottom: 40px;
+    padding: 5px;
+    color: #000000;
+    transition: margin-left 0.3s;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.categories > div:nth-child(1) a{
+    display: block;
+    margin-bottom: 5px;
+    padding: 5px;
+    color: #000000;
+    transition: margin-left 0.3s;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.categories > div:nth-child(1) a:hover{
+    color: darkgoldenrod;
+    margin-left: 15px;
+}
+
+
+.categories .site{
+    margin-bottom: 50px;
+}
+
+.categories .site > div > a {
+    color: green;
+}
+
+
+/* MESSAGES */
+
+p.success{
+    background-color: honeydew;
+    padding: 20px;
+}
+
+p.warning{
+    background-color: lemonchiffon;
+    padding: 20px;    
+}
+
+p.error{
+    background-color: mistyrose;
+    padding: 20px;    
+}

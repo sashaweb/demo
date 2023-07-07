@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="{{app.request.locale}}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="{% block meta_description %}{% endblock %}">
+        <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='https://fonts.googleapis.com/css?family=Roboto&subset=cyrillic-ext,latin' rel='stylesheet' type='text/css'>
+        <meta property="og:url"           content="http://catalog.org.ua" />
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content="Каталог сайтов Украины" />
+        <meta property="og:description"   content="Бесплатный каталог сайтов Украины. Без обратной ссылки. Для продвижения и рекламы сайта в интернете. Добавьте сайт прямо сейчас." />
+        <meta property="og:image"         content="http://catalog.org.ua/images/logo/logo256.png" />
+        <link rel="stylesheet" media="screen and (min-width: 980px)" href="/css/large.css">
+        <link rel="stylesheet" media="screen and (max-width: 980px)" href="/css/small.css">
+        <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZSP9J968FF"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-ZSP9J968FF');
+        </script>
+    </head>
+    <body>
+        <div id="fb-root"></div>
+        <script>
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.5";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <div class="menu">
+            <div class="container clearfix">
+                <a href="{{ path('app_home') }}">{% trans %} main_menu.home {% endtrans %}</a>
+                <a href="{{ path('app_terms') }}">{% trans %} main_menu.terms {% endtrans %}</a>
+                <a href="{{ path('app_search') }}">{% trans %} main_menu.search {% endtrans %}</a>
+                <a href="https://billing.hostpro.ua/aff.php?aff=8198">
+                    {% trans %} main_menu.hosting {% endtrans %}
+                </a>
+                {% if app.request.locale == 'uk' %}
+                    <a href="{{ path('app_locale', {locale: 'ru'})}}">Русский</a>
+                {% else %}
+                    <a href="{{ path('app_locale', {locale: 'uk'})}}" style="color:yellow;">Українська</a>    
+                {% endif %}
+                <a href="{{ path('app_submit') }}">{% trans %} main_menu.add {% endtrans %}</a>
+            </div>
+        </div>
+        <div class="title">
+            <div class="container">
+                <h1><img src="/images/logo48.png" style="position: relative; top: 10px;" alt="Каталог сайтов Украины" width="48" height="48">
+                    &ensp;{% block h1 %}{% endblock %}
+                </h1>
+            </div>
+        </div>
+        <div class="body">
+            <div class="container">
+            {% block body %}{% endblock %}
+            </div>
+        </div>
+        <div class="footer">
+            <div class="container clearfix">
+                <div>
+                    <div>
+                        <a href="mailto:info@catalog.org.ua">info@catalog.org.ua</a>
+                    </div>
+                    <div>
+                        <a href="https://www.facebook.com/sitescatalog"  title="facebook.com/sitescatalog" target="_blank">
+                            <img src="/images/facebook_logo.png" style="width: 32px" alt="facebook" width="32" height="32">
+                        </a>
+                        <a href="https://www.twitter.com/sitescatalog"  title="twitter.com/sitescatalog" target="_blank">
+                            <img src="/images/twitter.png" style="width: 32px" alt="twitter" width="32" height="32">
+                        </a>
+                        <br><br><a href="{{ path('app_locale', {locale: 'uk'})}}">Українська</a>
+                        <br><a href="{{ path('app_locale', {locale: 'ru'})}}">Русский</a>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <a href="/">{% trans %} site_name {% endtrans %}</a>
+                    </div>
+                    <div>
+                        &copy; 2015 - {{"now"|date('Y')}}. {% trans %} all_rights_reserved {% endtrans %}
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <a href="https://billing.hostpro.ua/aff.php?aff=8198">{% trans %} hosting {% endtrans %}</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</body>
+</html>

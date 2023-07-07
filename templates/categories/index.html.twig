@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+{% set locale = app.request.getLocale() %}
+
+{% block title %}{{category.name(locale)}}{% endblock %}
+{% block h1 %}{{category.name(locale)}}{% endblock %}
+{#
+{% block meta_description %}{% trans %}page.submit.meta.description{% endtrans %}{% endblock %}
+{% block meta_keywords %}{% trans %}page.submit.meta.keywords{% endtrans %}{% endblock %}
+#}
+
+{% block body %}
+
+
+{% if category.children is defined and category.children|length > 0 %}
+
+    <div class="subcats">
+        {% for category2 in category.children %} 
+            <a href="/categories/{{category2.alias}}">{{ category2.name(locale) }}</a>
+        {% endfor %}
+    </div>    
+
+{% endif %}
+
+
+<div class="sites">
+    {% for site in sites %}
+        <div class="site clearfix">
+            <div></div>
+            <div>
+                <h3>
+                    <a href="//{{site.domain}}" rel="nofollow">{{site.name}}</a>
+                </h3>
+                <a href="//{{site.domain}}" class="green" rel="nofollow">{{site.domain}}</a>
+                <p>{{site.shortdescription}}</p>
+                <a href="/site/{{site.domain}}" class="red">подробнее</a>
+            </div>
+        </div> 
+    {% endfor %}
+</div>
+
+{% if nav_params.display %} 
+    <div class="pagination">
+        {% if nav_params.current_page - 1 > 0 %}
+            {% if nav_params.current_page - 1 == 1 %}
+                <a href="{{ path('app_categories', { slug: category.alias }) }}">Previous</a>
+            {% else %}
+                <a href="{{ path('app_categories', { slug: category.alias, page: nav_params.current_page - 1 }) }}">Previous</a>
+            {% endif %}            
+        {% endif %}
+        {% if nav_params.first %}    
+            <a href="{{ path('app_categories', { slug: category.alias}) }}">1</a> ...
+        {% endif %}
+        {% for i in nav_params.start .. nav_params.end %}
+            {% if i == 1 %}
+                <a href="{{ path('app_categories', { slug: category.alias }) }}" {% if i == nav_params.current_page %} class="active"{% endif %}>{{ i }}</a>
+            {% else %}
+                <a href="{{ path('app_categories', { slug: category.alias, page: i }) }}" {% if i == nav_params.current_page %} class="active"{% endif %}>{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if nav_params.last %}
+            ... <a href="{{ path('app_categories', { slug: category.alias, page: nav_params.num_pages }) }}">{{nav_params.num_pages}}</a>
+        {% endif %}
+        {% if nav_params.current_page * nav_params.per_page < nav_params.total %}
+            <a href="{{ path('app_categories', { slug: category.alias, page: nav_params.current_page + 1 }) }}">Next</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% endblock %}

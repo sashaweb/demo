@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}page.terms.title{% endtrans %}{% endblock %}
+{% block h1 %}{% trans %}page.terms.title{% endtrans %}{% endblock %}
+{% block meta_description %}{% trans %}page.terms.meta.description{% endtrans %}{% endblock %}
+{% block meta_keywords %}{% trans %}page.terms.meta.keywords{% endtrans %}{% endblock %}
+
+{% block body %}
+<div class="section">
+    <h2 class="line">{% trans %}page.terms.req_title {% endtrans %}</h2>
+    <ul>
+        <li>
+            <p>{% trans %}page.terms.req_li_1{% endtrans %}</p>
+        </li>
+        <li>
+            <p>{% trans %}page.terms.req_li_2{% endtrans %}</p>
+        </li>
+        <li>
+            <p>{% trans %}page.terms.req_li_3{% endtrans %}</p>
+        </li> 
+        <li>
+            <p>{% trans %}page.terms.req_li_4{% endtrans %}</p>
+        </li>
+        <li>
+            <p>{% trans %}page.terms.req_li_5{% endtrans %}</p>
+        </li>
+        <li>
+            <p>{% trans %}page.terms.req_li_6{% endtrans %}</p>
+        </li>
+        <li>
+            <p>{% trans %}page.terms.req_li_7{% endtrans %}</p>
+        </li>
+    </ul>
+</div>
+<div class="section">
+    <h2 class="line">{% trans %}page.terms.add_title{% endtrans %}</h2>
+    <ul>
+        <li>
+            <p>{% trans with {'%price%': app.request.server.get('PRICE')} %} page.terms.add_li_1 {% endtrans %}</p>
+        </li>
+        <li>
+            <p>{% trans %}page.terms.add_li_2{% endtrans %}</p>
+        </li>
+        <li>
+            <p>{% trans %}page.terms.add_li_3{% endtrans %}</p>
+        </li>
+        <li>
+            <p>{% trans %}page.terms.add_li_4{% endtrans %}</p>
+        </li>
+    </ul>
+</div>
+{% endblock %}

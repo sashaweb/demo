@@ -1,0 +1,13 @@
+<div style="background-color: #F9F9F9; padding: 50px 10px;">
+    <div style="background-color: #FFFFFF; max-width: 800px; margin: auto; padding: 20px; font-family: Arial; border: 1px solid #F1F1F1;">
+        <div style="text-align: center; font-size: 20px; color: #333;">
+            <img style="position: relative; top: 7px;" src="https://{{ app.request.httpHost }}/images/logo/logo32.png">
+            {% trans %}site_name{% endtrans %}
+        </div>
+        <h2 style="text-align: center; color: #444444;">{% trans %} emails.confirmation.title{% endtrans %} :: {{domain}}</h2>
+        <p style="text-align: center;">{% trans %} emails.confirmation.text{% endtrans %}</p>
+        <p style="text-align: center;">
+            <a style="border:1px solid #15aeec; border-radius: 3px; font-size:14px; font-family:arial, helvetica, sans-serif; padding: 10px 15px 10px 15px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3);font-weight:bold; color: #FFFFFF; background-image: linear-gradient(to bottom, #49c0f0, #2CAFE3);" href="https://{{ app.request.httpHost }}/confirmation/{{ confirmation_code }}">Подтвердить запрос</a>
+        </p>
+    </div>
+</div>

@@ -1,0 +1,156 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block body %}
+
+{% macro badge(status) %}
+    {% if status == 4 %} 
+        text-bg-success
+    {% elseif status == 3 %}
+        text-bg-info 
+    {% elseif status == 2 %}
+        text-bg-warning
+    {% elseif status == 1 %}
+        text-bg-danger
+    {% else %}
+        text-bg-dark
+    {% endif %}  
+{% endmacro %}
+
+<div class="row border-bottom mt-5 mb-5 row-cols-1 row-cols-lg-2 row-cols-xl-2">
+    <div class="col-12 col-lg-6 col-xl-6">
+        <h1>{{site.name}}</h1>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-6 text-end">
+        <h4>
+            <span class="badge {{_self.badge(site.status.value)}}">{{ site.status.name }}</span>
+        </h4>    
+    </div>
+</div>
+
+<div class="row justify-content-xl-center">
+    <div class="col col-xl-6 ">
+        {{ form_start(form) }}
+            <div class="errors">
+                {{ form_errors(form) }}
+            </div>
+
+            <div>
+                <div class="mb-3">
+                    {{ form_label(form.name, 'label.name', { 
+                        'label_attr': {'class': 'form-label fw-bold'},
+                        }) }}      
+                    {{ form_widget(form.name, { 
+                        'attr': {'class': 'form-control'},
+                        }) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.domain, 'label.domain', { 
+                        'label_attr': {'class': 'form-label fw-bold'},
+                        }) }}
+                        <div class="input-group">      
+                    {{ form_widget(form.domain, { 
+                        'attr': {'class': 'form-control'} 
+                        }) }}
+                        <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard()">Copy</button>
+                        <a href="//{{ form.vars.value.domain }}" target="_blank" class="btn btn-outline-secondary" type="button">Go</a>
+                        </div> 
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.email, 'label.email', { 
+                        'label_attr': {'class': 'form-label fw-bold'},
+                        }) }}      
+                    {{ form_widget(form.email, { 
+                        'attr': {'class': 'form-control'} 
+                        }) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.categoryId, 'label.category', { 
+                        'label_attr': {'class': 'form-label fw-bold'},
+                        }) }} 
+                        <div id="categories">     
+                        {{ form_widget(form.categoryId, { 
+                            'attr': {'class': 'form-control'} 
+                            }) }}
+                        </div>
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.description, 'label.description', { 
+                        'label_attr': {'class': 'form-label fw-bold'},
+                        }) }}      
+                    {{ form_widget(form.description, { 
+                        'attr': {'class': 'form-control', 'rows': 10},
+                        }) }}
+                </div>
+                <div class="mb-3 text-center">   
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-grid">
+                                {{ form_widget(form.delete, {
+                                    'label': 'btn.delete', 
+                                    'attr': {                    
+                                        'class': 'btn btn-danger btn-block', 
+                                        'type': 'button', 
+                                        } 
+                                    }) }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-grid">
+                                {{ form_widget(form.save, {
+                                    'label': 'btn.save', 
+                                    'attr': {                    
+                                        'class': 'btn btn-primary btn-block', 
+                                        'type': 'button', 
+                                        } 
+                                    }) }}
+                            </div>
+                        </div>
+                        {% if site.status.value not in [3, 4] %} 
+                            <div class="col">
+                                <div class="d-grid">
+                                    {{ form_widget(form.invoice, {
+                                        'label': 'btn.invoice', 
+                                        'attr': {                    
+                                            'class': 'btn btn-warning btn-block', 
+                                            'type': 'button', 
+                                            } 
+                                        }) }}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if site.status.value not in [4] %}  
+                            <div class="col">
+                                <div class="d-grid">
+                                    {{ form_widget(form.add, {
+                                        'label': 'btn.add', 
+                                        'attr': {                    
+                                            'class': 'btn btn-success btn-block', 
+                                            'type': 'button', 
+                                            } 
+                                        }) }}
+                                </div>
+                            </div>
+                        {% endif %}            
+                    </div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+<script src="/js/categorySelectBuilder.js"></script>
+<script>
+    loadCategories({{ form.vars.value.categoryId }}, "form-control", "admin");
+</script>
+
+<script>
+    function copyToClipboard() {
+        var textBox = document.getElementById("admin_site_form_domain");
+        textBox.select();
+        document.execCommand("copy");
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}page.confirmation.title{% endtrans %}{% endblock %}
+{% block h1 %}{% trans %}page.confirmation.title{% endtrans %}{% endblock %}
+
+{% block body %}
+<div class="center">    
+    {% if is_confirmed %}
+        <p class="msg msg-warning">{% trans %} page.confirmation.already_confirmed{% endtrans %}</p>
+    {% else %}
+        <p class="msg msg-success">{% trans %} page.confirmation.successfully_confirmed{% endtrans %}</p>    
+    {% endif %}
+    </p>
+</div>
+
+{% endblock %}

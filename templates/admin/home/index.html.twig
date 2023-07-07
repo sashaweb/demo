@@ -1,0 +1,181 @@
+{% extends 'admin/base.html.twig' %}
+{% set page_title = t('page.admin.home.title')|trans %}
+
+{% block body %}
+
+{% macro badge(status) %}
+    {% if status == 4 %} 
+        text-bg-success
+    {% elseif status == 3 %}
+        text-bg-info 
+    {% elseif status == 2 %}
+        text-bg-warning
+    {% elseif status == 1 %}
+        text-bg-danger
+    {% else %}
+        text-bg-dark
+    {% endif %}  
+{% endmacro %}
+
+<div class="row border-bottom mt-5 mb-5 row-cols-1 row-cols-lg-2 row-cols-xl-2">
+    <div class="col-12 col-lg-4 col-xl-3">
+        <h1>{% trans %}page.admin.home.title{% endtrans %}</h1>
+    </div>
+    <div class="col-12 col-lg-7 col-xl-7">
+        <form class="row">
+            <div class="col-auto">
+                <div class="form-check">
+                    <input class="form-check-input" name="statuses[]" type="checkbox" value="1" id="status_1" {% if 1 in statuses or statuses | length == 0 %} checked {% endif %}>
+                    <label class="form-check-label" for="status_1">
+                        EmailNotConfirmed
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="statuses[]" type="checkbox" value="2" id="status_2" {% if 2 in statuses or statuses | length == 0 %} checked {% endif %}>
+                    <label class="form-check-label" for="status_2">
+                        PendingModeraion
+                    </label>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="form-check">
+                    <input class="form-check-input" name="statuses[]" type="checkbox" value="3" id="status_3" {% if 3 in statuses or statuses | length == 0 %} checked {% endif %}>
+                    <label class="form-check-label" for="status_3">
+                        PendingPayment
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="statuses[]" type="checkbox" value="4" id="status_4" {% if 4 in statuses %} checked {% endif %}>
+                    <label class="form-check-label" for="status_4">
+                        Added
+                    </label>
+                </div>
+            </div>
+            <div class="col-auto">
+                <label for="term" class="visually-hidden">Password</label>
+                <input type="text" class="form-control" id="term" name="term" value="{{term}}" placeholder="name or domain">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">{% trans %}btn.search{% endtrans %}</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 col-lg-1 col-xl-2">    
+        {{ form_start(form_delete_expired_requests) }}
+            {{ form_widget(form_delete_expired_requests.delete, {
+            'label': 'btn.delete_count' | trans({'%count%': expired_request_count}),
+            'attr': {                    
+                'class': 'btn btn-danger mb3', 
+                'type': 'button',
+                } 
+            }) }}
+        {{ form_end(form_delete_expired_requests) }}
+    </div>
+</div>
+
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Created</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Email</th>
+                <th scope="col">IP Address</th>
+                <th scope="col">Status</th>            
+            </tr>
+        </thead>
+        <tbody>
+            {% for site in sites %}
+                <tr>
+                    <td>
+                        {{ site.Id }}
+                    </td>
+                    <td>
+                        {{ site.createdAt |date('d.m.Y') }}
+                    </td>
+                    <td>
+                        <a href="{{ path('app_admin_site', {domain: site.domain}) }}">{{ site.domain }}</a>
+                    </td>
+                    <td>
+                        {{ site.email }}
+                    </td>
+                    <td>
+                        {{ site.ip }}
+                    </td>
+                    <td>
+                        <span class="badge {{_self.badge(site.status.value)}}">{{ site.status.name }}</span>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if nav_params.display %} 
+    {% set params = { page: null, term: term, statuses: statuses} %}
+    <ul class="pagination justify-content-center">
+        {% if nav_params.current_page - 1 > 0 %}
+            {% if nav_params.current_page - 1 == 1 %}
+                {% set params = params | merge ({page: null}) %}
+            {% else %}
+                {% set params = params | merge ({page: nav_params.current_page - 1}) %}
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link" href="{{ path('app_admin_home', params) }}">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>              
+        {% endif %}
+        {% if nav_params.first %}
+            <li class="page-item">
+                {% set params = params | merge ({page: null}) %}    
+                <a class="page-link" href="{{ path('app_admin_home', params) }}">1</a>
+            </li>
+            <li class="page-item">    
+                <span class="page-link disabled"> ... </span>
+            </li>      
+        {% endif %}
+        {% for i in nav_params.start .. nav_params.end %}        
+            {% if i == 1 %}
+                {% set params = params | merge ({page: null}) %}
+            {% else %}
+                {% set params = params | merge ({page: i}) %}
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link {% if i == nav_params.current_page %} active{% endif %}" href="{{ path('app_admin_home', params) }}" >{{ i }}</a>
+            </li>
+        {% endfor %}
+        {% if nav_params.last %}
+            <li class="page-item">
+                <span class="page-link disabled"> ... </span>
+            </li>
+            <li class="page-item">
+                {% set params = params | merge ({page: nav_params.num_pages}) %}
+                <a class="page-link" href="{{ path('app_admin_home', params) }}">{{nav_params.num_pages}}</a>
+            </li>
+        {% endif %}
+        {% if nav_params.current_page * nav_params.per_page < nav_params.total %}
+            <li class="page-item">
+            {% set params = params | merge ({page: nav_params.current_page + 1}) %}
+                <a class="page-link" href="{{ path('app_admin_home', params) }}">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}
+
+
+<script>
+  document.querySelectorAll('[name=\'statuses[]\']').forEach(
+    e => e.addEventListener(
+        'change', evt => document.forms[0].submit()
+        )
+    );
+</script>
+
+{% endblock %}
+
+
